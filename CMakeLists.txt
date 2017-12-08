@@ -8,6 +8,7 @@ SET(PROJECT_NAME nqueens)
 SET(CXX_FLAGS
   -Wall
   -Wextra
+  -pthread
   -std=c++11
   )
 STRING(REPLACE ";" " " CMAKE_CXX_FLAGS "${CXX_FLAGS}")

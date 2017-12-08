@@ -1,5 +1,8 @@
 
+#include <iomanip>
 #include <iostream>
+
+#include <sys/time.h>
 
 int n = 10;
 int board[30];
@@ -48,7 +51,14 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    struct timeval tpstart, tpend;
+    gettimeofday(&tpstart, NULL);
+
     n = ::atoi(argv[1]);
     dfs(0);
     std::cout << "total: " << tot << "\n";
+
+    gettimeofday(&tpend, NULL);
+    double timeuse = 1000000 * (tpend.tv_sec - tpstart.tv_sec) + tpend.tv_usec - tpstart.tv_usec;
+    std::cout << "Time cost: " << std::setprecision(4) << timeuse / 1000000 << "s\n";
 }
