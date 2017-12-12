@@ -13,26 +13,20 @@
 std::mutex mtx;
 int64_t ans = 0;
 
-void foo(std::vector<int>& vec, int i, int n, int one_third) {
-    std::vector<NQueensSolver::Constraint> constraints(vec[i]);
-    for (int j = 0; j < vec[i]; j++)
-    {
-        constraints[j].push_back(j + one_third * i);
-    }
-    for (auto& constraint : constraints)
-    {
-        NQueensSolver solver;
-        int64_t tmp = solver.solve(n, constraint);
-        std::lock_guard<std::mutex> lck(mtx);
+void foo(int id, std::vector<Work>& vec) {
+    for (auto& work : vec) {
+        int64_t tmp = work.solve();
+        std::lock_guard<std::mutex> lock(mtx);
         ans += tmp;
     }
 }
 
+
 int main(int argc, char* argv[])
 {
-    if (argc != 2)
+    if (argc != 3)
     {
-        std::cerr << "Usage: nqueens_mul_thrd <n>\n";
+        std::cerr << "Usage: nqueens_mul_thrd <n> <threads>\n";
         return -1;
     }
 
@@ -40,38 +34,30 @@ int main(int argc, char* argv[])
     gettimeofday(&tpstart, NULL);
 
     int n = ::atoi(argv[1]);
+    int n_threads = ::atoi(argv[2]);
 
     // Divide into three threads temporarily
-    int one_third = n / 3;
-    std::vector<int> vec({ one_third, one_third, n - 2 * one_third });
+    Work work(n);
+    std::vector<std::vector<Work>> works = work.partition(n_threads);
+    /*
+    for (auto& ele:works) {
+        for (auto& work:ele) work.print();
+        std::cout << "\n";
+    }*/
     std::vector<std::thread> thrds;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < n_threads; i++)
     {
-        thrds.push_back(std::thread(/*
-            [&vec, &i, &n, &one_third](){
-                std::vector<NQueensSolver::Constraint> constraints;
-                for (int j = 0; j < vec[i]; j++)
-                {
-                    constraints[j].push_back(j + one_third * i);
-                }
-                for (auto& constraint : constraints)
-                {
-                    NQueensSolver solver;
-                    int64_t tmp = solver.solve(n, constraint);
-                    std::lock_guard<std::mutex> lck(mtx);
-                    ans += tmp;
-                }
-            }));*/
-                foo, std::ref(vec), i, n, one_third));
+        thrds.push_back(std::thread(foo, i, std::ref(works[i])));
     }
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < n_threads; i++)
     {
         thrds[i].join();
     }
 
-    std::cout << ans << "\n";
+    std::cout << "n: " << n << "  answer: " << ans << "\n";
 
     gettimeofday(&tpend, NULL);
-    double timeuse = 1000000 * (tpend.tv_sec - tpstart.tv_sec) + tpend.tv_usec - tpstart.tv_usec;
-    std::cout << "Time cost: " << std::setprecision(4) << timeuse / 1000000 << "s\n";
+    double timeuse = tpend.tv_sec - tpstart.tv_sec + (tpend.tv_usec - tpstart.tv_usec) * 1e-6;
+    std::cout << "Use seconds: " << tpend.tv_sec - tpstart.tv_sec << "  microseconds: " << tpend.tv_usec - tpstart.tv_usec << "\n";
+    std::cout << "Time cost: " << std::setprecision(4) << timeuse << "s\n";
 }
