@@ -17,6 +17,7 @@ INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/src")
 
 SET(nqueens_SRCS
   ${PROJECT_SOURCE_DIR}/src/nqueens_solver.cpp
+  ${PROJECT_SOURCE_DIR}/src/work_manager.cpp
   ${PROJECT_SOURCE_DIR}/src/nqueens_mul_thrd.cpp
   )
 

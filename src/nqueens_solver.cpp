@@ -60,10 +60,8 @@ std::vector<std::vector<Work>> Work::partition(int div)
         {
             rem *= n_;
         };
-        int32_t cnt = rem / div;//std::cout << "rem: " << rem << "\n" << "cnt: " << cnt << "\n";
+        int32_t cnt = rem / div;
         rem = rem % div;
-        //std::cout << "rem: " << rem << "\n";
-        //std::cout << "constraints_.size(): " << constraints_.size() << "\n";
         for (int i = 0; i < div; i++)
         {
             for (int j = 0; j < cnt; j++)
@@ -140,20 +138,4 @@ void Work::dfs(int idx)
         }
     }
 }
-/*
-bool NQueensSolver::is_constraint_valid(int n, Constraint& constraint)
-{
-    if (static_cast<int>(constraint.size()) > n)
-    {
-        return false;
-    }
-    for (int ele : constraint)
-    {
-        if (ele < 0 || ele >= n)
-        {
-            return false;
-        }
-    }
-    return true;
-}
-*/
+

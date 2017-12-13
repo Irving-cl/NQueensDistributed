@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
 
@@ -43,6 +44,33 @@ void dfs(int idx) {
     }
 }
 
+void nqueens(int n) {
+    int idx = 0;
+    std::fill_n(board, 30, -1);
+    while (idx >= 0) {
+        if (idx == n) {
+            tot++;
+            idx--;
+        } else {
+            board[idx]++;
+            if (board[idx] == n) {
+                board[idx] = -1;
+                idx--;
+            } else {
+                bool flag = true;
+                // check
+                for (int j = 0; j < idx; j++) {
+                    if (board[j] == board[idx] ||
+                        abs(board[idx] - board[j]) == abs(idx - j)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) idx++;
+            }
+        }
+    }
+}
 
 int main(int argc, char* argv[])
 {
@@ -56,6 +84,7 @@ int main(int argc, char* argv[])
 
     n = ::atoi(argv[1]);
     dfs(0);
+    //nqueens(n);
     std::cout << "total: " << tot << "\n";
 
     gettimeofday(&tpend, NULL);
