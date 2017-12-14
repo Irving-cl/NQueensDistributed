@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
         for (auto& work:ele) work.print();
         std::cout << "\n";
     }*/
-    WorkManager work_manager(n, 13);
+    WorkManager work_manager(n, 11);
     std::vector<std::thread> thrds;
     for (int i = 0; i < n_threads; i++)
     {

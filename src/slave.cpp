@@ -22,11 +22,41 @@ public:
 
 private:
 
+    enum { kMaxLength = 65536 };
+
     boost::asio::ip::tcp::acceptor acceptor_;
     boost::asio::ip::tcp::socket socket_;
 
+    char buf_[kMaxLength];
+
     void do_accept()
     {
+        acceptor_.async_accept(socket_,
+            [this](boost::system::error_code ec)
+            {
+                ask_for_work();
+            });
+    }
+
+    void ask_for_work()
+    {
+        /// Send SLAVE_ASK_FOR_WORK_REQ
+        async_write(socket_, boost::asio::buffer(buf_, kMaxLength),
+            [this](boost::system::error_code ec, std::size_t bytes_transferred)
+            {
+                socket_.async_read_some(boost::asio::buffer(buf_, kMaxLength),
+                    std::bind(&session::read_handler, this, std::placeholders::_1, std::placeholders::_2));
+            });
+    }
+
+    void read_handler(boost::system::error_code ec, size_t len)
+    {
+        /// Parse the packet, find corresponding protocol
+
+        /*
+         * Protocols:
+         * 1. MASTER_ASK_FOR_WORK_RSP
+         */
     }
 };
 
