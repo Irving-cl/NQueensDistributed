@@ -101,6 +101,7 @@ void InitDefaultsMasterAssignWork() {
 }
 
 ::google::protobuf::Metadata file_level_metadata[3];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[3];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterCall, _has_bits_),
@@ -122,13 +123,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, error_code_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, constraint_),
+  0,
   ~0u,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 6, sizeof(::nqueens::MasterCall)},
   { 7, 13, sizeof(::nqueens::SlaveAskForWork)},
-  { 14, 20, sizeof(::nqueens::MasterAssignWork)},
+  { 14, 21, sizeof(::nqueens::MasterAssignWork)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -142,7 +145,7 @@ void protobuf_AssignDescriptors() {
   ::google::protobuf::MessageFactory* factory = NULL;
   AssignDescriptors(
       "nqueens.proto", schemas, file_default_instances, TableStruct::offsets, factory,
-      file_level_metadata, NULL, NULL);
+      file_level_metadata, file_level_enum_descriptors, NULL);
 }
 
 void protobuf_AssignDescriptorsOnce() {
@@ -161,11 +164,16 @@ void AddDescriptorsImpl() {
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\rnqueens.proto\022\007nqueens\"\036\n\nMasterCall\022\020"
       "\n\010password\030\001 \002(\t\"#\n\017SlaveAskForWork\022\020\n\010p"
-      "assword\030\001 \002(\t\"&\n\020MasterAssignWork\022\022\n\ncon"
-      "straint\030\001 \003(\005"
+      "assword\030\001 \002(\t\":\n\020MasterAssignWork\022\022\n\nerr"
+      "or_code\030\001 \002(\005\022\022\n\nconstraint\030\002 \003(\005*>\n\013Mas"
+      "terMsgID\022\023\n\017MASTER_MSG_CALL\020\001\022\032\n\026MASTER_"
+      "MSG_ASSIGN_WORK\020\002*(\n\nSlaveMsgID\022\032\n\026SLAVE"
+      "_MSG_ASK_FOR_WORK\020\001*>\n\tErrorCode\022\022\n\016ERRO"
+      "R_NO_ERROR\020\000\022\035\n\031ERROR_MASTER_NO_MORE_WOR"
+      "K\020\001"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 133);
+      descriptor, 323);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "nqueens.proto", &protobuf_RegisterTypes);
 }
@@ -182,6 +190,47 @@ struct StaticDescriptorInitializer {
 } static_descriptor_initializer;
 }  // namespace protobuf_nqueens_2eproto
 namespace nqueens {
+const ::google::protobuf::EnumDescriptor* MasterMsgID_descriptor() {
+  protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_nqueens_2eproto::file_level_enum_descriptors[0];
+}
+bool MasterMsgID_IsValid(int value) {
+  switch (value) {
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* SlaveMsgID_descriptor() {
+  protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_nqueens_2eproto::file_level_enum_descriptors[1];
+}
+bool SlaveMsgID_IsValid(int value) {
+  switch (value) {
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor() {
+  protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_nqueens_2eproto::file_level_enum_descriptors[2];
+}
+bool ErrorCode_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
 
 // ===================================================================
 
@@ -718,6 +767,7 @@ void SlaveAskForWork::InternalSwap(SlaveAskForWork* other) {
 void MasterAssignWork::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int MasterAssignWork::kErrorCodeFieldNumber;
 const int MasterAssignWork::kConstraintFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -736,11 +786,13 @@ MasterAssignWork::MasterAssignWork(const MasterAssignWork& from)
       _cached_size_(0),
       constraint_(from.constraint_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  error_code_ = from.error_code_;
   // @@protoc_insertion_point(copy_constructor:nqueens.MasterAssignWork)
 }
 
 void MasterAssignWork::SharedCtor() {
   _cached_size_ = 0;
+  error_code_ = 0;
 }
 
 MasterAssignWork::~MasterAssignWork() {
@@ -781,6 +833,7 @@ void MasterAssignWork::Clear() {
   (void) cached_has_bits;
 
   constraint_.Clear();
+  error_code_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -795,16 +848,30 @@ bool MasterAssignWork::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated int32 constraint = 1;
+      // required int32 error_code = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+          set_has_error_code();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &error_code_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated int32 constraint = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 1, 8u, input, this->mutable_constraint())));
+                 1, 16u, input, this->mutable_constraint())));
         } else if (
             static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, this->mutable_constraint())));
@@ -840,10 +907,16 @@ void MasterAssignWork::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated int32 constraint = 1;
+  cached_has_bits = _has_bits_[0];
+  // required int32 error_code = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->error_code(), output);
+  }
+
+  // repeated int32 constraint = 2;
   for (int i = 0, n = this->constraint_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(
-      1, this->constraint(i), output);
+      2, this->constraint(i), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -860,9 +933,15 @@ void MasterAssignWork::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated int32 constraint = 1;
+  cached_has_bits = _has_bits_[0];
+  // required int32 error_code = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->error_code(), target);
+  }
+
+  // repeated int32 constraint = 2;
   target = ::google::protobuf::internal::WireFormatLite::
-    WriteInt32ToArray(1, this->constraint_, target);
+    WriteInt32ToArray(2, this->constraint_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
@@ -881,7 +960,13 @@ size_t MasterAssignWork::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  // repeated int32 constraint = 1;
+  // required int32 error_code = 1;
+  if (has_error_code()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->error_code());
+  }
+  // repeated int32 constraint = 2;
   {
     size_t data_size = ::google::protobuf::internal::WireFormatLite::
       Int32Size(this->constraint_);
@@ -920,6 +1005,9 @@ void MasterAssignWork::MergeFrom(const MasterAssignWork& from) {
   (void) cached_has_bits;
 
   constraint_.MergeFrom(from.constraint_);
+  if (from.has_error_code()) {
+    set_error_code(from.error_code());
+  }
 }
 
 void MasterAssignWork::CopyFrom(const ::google::protobuf::Message& from) {
@@ -937,6 +1025,7 @@ void MasterAssignWork::CopyFrom(const MasterAssignWork& from) {
 }
 
 bool MasterAssignWork::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   return true;
 }
 
@@ -947,6 +1036,7 @@ void MasterAssignWork::Swap(MasterAssignWork* other) {
 void MasterAssignWork::InternalSwap(MasterAssignWork* other) {
   using std::swap;
   constraint_.InternalSwap(&other->constraint_);
+  swap(error_code_, other->error_code_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);

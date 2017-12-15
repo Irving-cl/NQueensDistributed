@@ -109,6 +109,11 @@ int64_t Work::solve()
     return cnt_;
 }
 
+std::vector<int32_t> Work::get_constraint()
+{
+    return constraints_;
+}
+
 void Work::dfs(int idx)
 {
     // A solution is found

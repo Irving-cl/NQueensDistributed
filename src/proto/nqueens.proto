@@ -2,14 +2,30 @@ syntax = "proto2";
 
 package nqueens;
 
-message MasterCall {
+enum MasterMsgID {
+    MASTER_MSG_CALL = 1;
+    MASTER_MSG_ASSIGN_WORK = 2;
+};
+
+enum SlaveMsgID {
+    SLAVE_MSG_ASK_FOR_WORK = 1;
+};
+
+enum ErrorCode {
+    ERROR_NO_ERROR = 0;
+   
+    ERROR_MASTER_NO_MORE_WORK = 1;
+};
+
+message MasterCall {    // MSGID : MASTER_MSG_CALL
     required string password = 1;
 }
 
-message SlaveAskForWork {
+message SlaveAskForWork {    // MSGID : SLAVE_MSG_ASK_FOR_WORK
     required string password = 1;
 }
 
-message MasterAssignWork {
-    repeated int32 constraint = 1;
+message MasterAssignWork {    // MSGID : MASTER_MSG_ASSIGN_WORK
+    required int32 error_code = 1;
+    repeated int32 constraint = 2;
 }

@@ -25,6 +25,9 @@ public:
     /// Unit partition
     void unit_partition(int degree);
 
+    /// Get constraint
+    std::vector<int32_t> get_constraint();
+
     void print()
     {
         for (int i = 0; i < constraints_.size(); i++)

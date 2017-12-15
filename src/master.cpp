@@ -1,60 +1,180 @@
 
 #include <iostream>
+#include <fstream>
 #include <functional>
+#include <memory>
+#include <mutex>
+#include <string.h>
 
 #include <boost/asio.hpp>
+#include "nqueens_solver.h"
+#include "proto/nqueens.pb.h"
+#include "work_manager.h"
 
-class master
-{
-};
-
-class session
+class Master
 {
 public:
 
-    session(boost::asio::io_service& ios)
-      : socket_(ios)
+    Master(int n, int degree)
+      : work_manager_(n, degree)
     {
+
     }
 
-    void start(boost::asio::ip::address& address, uint16_t port)
+    std::shared_ptr<Work> get_work()
     {
-        socket_.async_connect(boost::asio::ip::tcp::endpoint(address, port),
-            std::bind(&session::connect_handler, this, std::placeholders::_1));
+        return work_manager_.get_work();
     }
 
 private:
 
-    enum { kMaxLength = 65536 };
+    WorkManager work_manager_;
+};
 
-    boost::asio::ip::tcp::socket socket_;
-    char buf_[kMaxLength];
+class Session
+  : public std::enable_shared_from_this<Session>
+{
+public:
 
-    void connect_handler(boost::system::error_code ec)
+    Session(boost::asio::io_service& ios, Master& master)
+      : socket_(ios),
+        master_(master)
     {
-        socket_.async_read_some(boost::asio::buffer(buf_, kMaxLength),
-            std::bind(&session::read_handler, this, std::placeholders::_1, std::placeholders::_2));
+
     }
 
-    void read_handler(boost::system::error_code ec, size_t len)
+    void start(boost::asio::ip::address address, uint16_t port)
     {
-        /// Parse the packet, find corresponding protocol
+        auto self(shared_from_this());
+        socket_.async_connect(boost::asio::ip::tcp::endpoint(address, port),
+            [this, self](boost::system::error_code ec)
+            {
+                if (!ec)
+                {
+                    do_read_header();
+                }
+            });
+    }
 
-        /*
-         * Protocols:
-         * 1. SLAVE_ASK_FOR_WORK_REQ
-         * 2. SLAVE_GIVE_RESULT
-         */
+private:
+
+    enum { kMaxBodyLength = 512, kHeaderLength = 8 };
+
+    static const char* kPassword;
+
+    boost::asio::ip::tcp::socket socket_;
+    Master& master_;
+    char header_[kHeaderLength];
+    char data_[kMaxBodyLength];
+
+    void do_read_header()
+    {
+        auto self(shared_from_this());
+        boost::asio::async_read(socket_, boost::asio::buffer(header_, kHeaderLength),
+            [this, self](boost::system::error_code ec, std::size_t length)
+            {
+                if (!ec && length == kHeaderLength)
+                {
+                    /// Get message id and body length
+                    int32_t msg_id = 0;
+                    int32_t body_length = 0;
+                    memcpy(&msg_id, header_, sizeof(int32_t));
+                    memcpy(&body_length, header_ + 4, sizeof(int32_t));
+
+                    /// Read body
+                    if (body_length <= kMaxBodyLength)
+                    {
+                        do_read_body(msg_id, body_length);
+                    }
+                }
+            });
+    }
+
+    void do_read_body(int32_t msg_id, int32_t body_length)
+    {
+        auto self(shared_from_this());
+        boost::asio::async_read(socket_, boost::asio::buffer(data_, body_length),
+            [this, self, msg_id](boost::system::error_code ec, std::size_t length)
+            {
+                if (!ec)
+                {
+                    if (msg_id == nqueens::SlaveMsgID::SLAVE_MSG_ASK_FOR_WORK)
+                    {
+                        slave_msg_ask_for_work_callback();
+                    }
+                    else
+                    {
+                        std::cerr << "Get wrong msg id: " << msg_id << "\n";
+                    }
+                }
+            });
+    }
+
+    void slave_msg_ask_for_work_callback()
+    {
+        auto self(shared_from_this());
+
+        /// Run master and send a MASTER_MSG_ASSIGN_WORK to the slave
+        auto work_ptr = master_.get_work();
+        nqueens::MasterAssignWork master_assign_work;
+        if (work_ptr)
+        {
+            master_assign_work.set_error_code(nqueens::ErrorCode::ERROR_NO_ERROR);
+            std::vector<int32_t> constraint = work_ptr->get_constraint();std::cout << "Give out one task: ";
+            for (int32_t ele : constraint)
+            {
+                master_assign_work.add_constraint(ele);std::cout << ele << " ";
+            }std::cout << "\n";
+        }
+        else
+        {
+            master_assign_work.set_error_code(nqueens::ErrorCode::ERROR_MASTER_NO_MORE_WORK);
+        }
+
+        /// Fill head and body
+        std::string serialized_data;
+        master_assign_work.SerializeToString(&serialized_data); 
+        int32_t body_length = serialized_data.size();
+        int32_t msg_id = nqueens::MasterMsgID::MASTER_MSG_ASSIGN_WORK;
+        memcpy(data_, &msg_id, sizeof(int32_t));
+        memcpy(data_ + 4, &body_length, sizeof(int32_t));
+        memcpy(data_ + 8, serialized_data.c_str(), body_length);
+
+        /// Do read header agian when async_send succeed
+        boost::asio::async_write(socket_, boost::asio::buffer(data_, kHeaderLength + body_length),
+            [this, self](boost::system::error_code ec, std::size_t bytes_transferred)
+            {
+                if (!ec)
+                {
+                    do_read_header();
+                }
+            });
     }
 };
 
+const char* Session::kPassword = "irving-cl";
 
 int main()
 {
     /// 1. read configuration file
-    
+    std::fstream fs("slaves.conf", std::fstream::in);
+    int32_t n_slaves = 0;
+    fs >> n_slaves;
+    std::cout << "slaves: " << n_slaves << "\n";
+
     /// 2. connect all the slaves
     boost::asio::io_service ios;
+    Master master(15, 11);
+
+    std::string ip;
+    int16_t port;
+    for (int i = 0; i < n_slaves; i++)
+    {
+        fs >> ip >> port;
+        std::cout << "ip:" << ip << "   port:" << port << "\n";
+        std::make_shared<Session>(ios, master)->start(
+            boost::asio::ip::address::from_string(ip.c_str()), port);
+    }
 
     ios.run();
 }

@@ -23,10 +23,16 @@ SET(nqueens_SRCS
 
 SET(master_SRCS
   ${PROJECT_SOURCE_DIR}/src/master.cpp
+  ${PROJECT_SOURCE_DIR}/src/proto/nqueens.pb.cc
+  ${PROJECT_SOURCE_DIR}/src/nqueens_solver.cpp
+  ${PROJECT_SOURCE_DIR}/src/work_manager.cpp
   )
 
 SET(slave_SRCS
   ${PROJECT_SOURCE_DIR}/src/slave.cpp
+  ${PROJECT_SOURCE_DIR}/src/proto/nqueens.pb.cc
+  ${PROJECT_SOURCE_DIR}/src/nqueens_solver.cpp
+  ${PROJECT_SOURCE_DIR}/src/work_manager.cpp
   )
 
 ADD_EXECUTABLE(nqueens_mul_thrd ${nqueens_SRCS})
@@ -35,7 +41,7 @@ ADD_EXECUTABLE(nqueens_master ${master_SRCS})
 
 ADD_EXECUTABLE(nqueens_slave ${slave_SRCS})
 
-TARGET_LINK_LIBRARIES(nqueens_master boost_system)
+TARGET_LINK_LIBRARIES(nqueens_master boost_system protobuf)
 
-TARGET_LINK_LIBRARIES(nqueens_slave boost_system)
+TARGET_LINK_LIBRARIES(nqueens_slave boost_system protobuf)
 

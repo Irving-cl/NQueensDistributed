@@ -28,6 +28,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
@@ -67,6 +68,62 @@ extern SlaveAskForWorkDefaultTypeInternal _SlaveAskForWork_default_instance_;
 }  // namespace nqueens
 namespace nqueens {
 
+enum MasterMsgID {
+  MASTER_MSG_CALL = 1,
+  MASTER_MSG_ASSIGN_WORK = 2
+};
+bool MasterMsgID_IsValid(int value);
+const MasterMsgID MasterMsgID_MIN = MASTER_MSG_CALL;
+const MasterMsgID MasterMsgID_MAX = MASTER_MSG_ASSIGN_WORK;
+const int MasterMsgID_ARRAYSIZE = MasterMsgID_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* MasterMsgID_descriptor();
+inline const ::std::string& MasterMsgID_Name(MasterMsgID value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    MasterMsgID_descriptor(), value);
+}
+inline bool MasterMsgID_Parse(
+    const ::std::string& name, MasterMsgID* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<MasterMsgID>(
+    MasterMsgID_descriptor(), name, value);
+}
+enum SlaveMsgID {
+  SLAVE_MSG_ASK_FOR_WORK = 1
+};
+bool SlaveMsgID_IsValid(int value);
+const SlaveMsgID SlaveMsgID_MIN = SLAVE_MSG_ASK_FOR_WORK;
+const SlaveMsgID SlaveMsgID_MAX = SLAVE_MSG_ASK_FOR_WORK;
+const int SlaveMsgID_ARRAYSIZE = SlaveMsgID_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* SlaveMsgID_descriptor();
+inline const ::std::string& SlaveMsgID_Name(SlaveMsgID value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    SlaveMsgID_descriptor(), value);
+}
+inline bool SlaveMsgID_Parse(
+    const ::std::string& name, SlaveMsgID* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<SlaveMsgID>(
+    SlaveMsgID_descriptor(), name, value);
+}
+enum ErrorCode {
+  ERROR_NO_ERROR = 0,
+  ERROR_MASTER_NO_MORE_WORK = 1
+};
+bool ErrorCode_IsValid(int value);
+const ErrorCode ErrorCode_MIN = ERROR_NO_ERROR;
+const ErrorCode ErrorCode_MAX = ERROR_MASTER_NO_MORE_WORK;
+const int ErrorCode_ARRAYSIZE = ErrorCode_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ErrorCode_descriptor();
+inline const ::std::string& ErrorCode_Name(ErrorCode value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ErrorCode_descriptor(), value);
+}
+inline bool ErrorCode_Parse(
+    const ::std::string& name, ErrorCode* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ErrorCode>(
+    ErrorCode_descriptor(), name, value);
+}
 // ===================================================================
 
 class MasterCall : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:nqueens.MasterCall) */ {
@@ -394,10 +451,10 @@ class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertio
 
   // accessors -------------------------------------------------------
 
-  // repeated int32 constraint = 1;
+  // repeated int32 constraint = 2;
   int constraint_size() const;
   void clear_constraint();
-  static const int kConstraintFieldNumber = 1;
+  static const int kConstraintFieldNumber = 2;
   ::google::protobuf::int32 constraint(int index) const;
   void set_constraint(int index, ::google::protobuf::int32 value);
   void add_constraint(::google::protobuf::int32 value);
@@ -406,13 +463,23 @@ class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertio
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_constraint();
 
+  // required int32 error_code = 1;
+  bool has_error_code() const;
+  void clear_error_code();
+  static const int kErrorCodeFieldNumber = 1;
+  ::google::protobuf::int32 error_code() const;
+  void set_error_code(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:nqueens.MasterAssignWork)
  private:
+  void set_has_error_code();
+  void clear_has_error_code();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > constraint_;
+  ::google::protobuf::int32 error_code_;
   friend struct ::protobuf_nqueens_2eproto::TableStruct;
   friend void ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWorkImpl();
 };
@@ -561,7 +628,31 @@ inline void SlaveAskForWork::set_allocated_password(::std::string* password) {
 
 // MasterAssignWork
 
-// repeated int32 constraint = 1;
+// required int32 error_code = 1;
+inline bool MasterAssignWork::has_error_code() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void MasterAssignWork::set_has_error_code() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void MasterAssignWork::clear_has_error_code() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void MasterAssignWork::clear_error_code() {
+  error_code_ = 0;
+  clear_has_error_code();
+}
+inline ::google::protobuf::int32 MasterAssignWork::error_code() const {
+  // @@protoc_insertion_point(field_get:nqueens.MasterAssignWork.error_code)
+  return error_code_;
+}
+inline void MasterAssignWork::set_error_code(::google::protobuf::int32 value) {
+  set_has_error_code();
+  error_code_ = value;
+  // @@protoc_insertion_point(field_set:nqueens.MasterAssignWork.error_code)
+}
+
+// repeated int32 constraint = 2;
 inline int MasterAssignWork::constraint_size() const {
   return constraint_.size();
 }
@@ -602,6 +693,28 @@ MasterAssignWork::mutable_constraint() {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace nqueens
+
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::nqueens::MasterMsgID> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::nqueens::MasterMsgID>() {
+  return ::nqueens::MasterMsgID_descriptor();
+}
+template <> struct is_proto_enum< ::nqueens::SlaveMsgID> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::nqueens::SlaveMsgID>() {
+  return ::nqueens::SlaveMsgID_descriptor();
+}
+template <> struct is_proto_enum< ::nqueens::ErrorCode> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::nqueens::ErrorCode>() {
+  return ::nqueens::ErrorCode_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 
