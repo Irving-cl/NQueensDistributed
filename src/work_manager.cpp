@@ -7,14 +7,33 @@
 WorkManager::WorkManager(int n, int degree)
   : n_(n),
     degree_(degree),
-    idx_(0)
+    idx_(0),
+    start_idx_(0)
 {
     std::fill_n(board_, 30, -1);
 }
 
+bool WorkManager::set_constraint(std::vector<int>& constraint)
+{
+/*
+    if (constraint.size() > n_ - degree_)
+    {
+        return false;
+    }
+*/
+    start_idx_ = constraint.size();
+    std::fill_n(board_, 30, -1);
+    for (idx_ = 0; idx_ < constraint.size(); idx_++)
+    {
+        board_[idx_] = constraint[idx_];
+    }
+    
+    return true;
+}
+
 std::shared_ptr<Work> WorkManager::get_work()
 {
-    while (idx_ >= 0) {
+    while (idx_ >= start_idx_) {
         if (idx_ + degree_ >= n_) {    // get a work
             std::vector<int> constraint(board_, board_ + idx_);
             idx_--;

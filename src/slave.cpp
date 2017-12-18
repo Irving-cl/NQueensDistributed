@@ -1,15 +1,77 @@
 
 #include <sys/sysinfo.h>
 
+#include <iomanip>
 #include <iostream>
 #include <functional>
+#include <memory>
+#include <mutex>
+#include <thread>
 
 #include <boost/asio.hpp>
+#include "nqueens_solver.h"
 #include "proto/nqueens.pb.h"
+#include "work_manager.h"
 
-class Slave
+static int core_count = 1;
+static int64_t ans = 0;
+
+std::mutex mtx;
+
+std::shared_ptr<Work> get_work_locked(WorkManager& work_manager)
 {
-};
+    std::lock_guard<std::mutex> lock(mtx);
+    return work_manager.get_work();
+}
+
+void bar(int id, WorkManager& work_manager)
+{
+    //struct timeval tpstart, tpend;
+    //gettimeofday(&tpstart, NULL);
+
+    while (true)
+    {
+        auto work_ptr = get_work_locked(work_manager);
+        if (!work_ptr)
+        {
+            break;
+        }
+        else
+        {
+            int64_t tmp = work_ptr->solve();
+            std::lock_guard<std::mutex> lock(mtx);
+            ans += tmp;
+        }
+    }
+
+    //gettimeofday(&tpend, NULL);
+    //double timeuse = tpend.tv_sec - tpstart.tv_sec + (tpend.tv_usec - tpstart.tv_usec) * 1e-6;
+    //std::lock_guard<std::mutex> lock(mtx);
+    //std::cout << "Thread[" << id << "]  " << std::setprecision(4) << timeuse << "s\n";
+}
+
+int64_t solve(nqueens::MasterAssignWork& master_assign_work)
+{
+    WorkManager work_manager(master_assign_work.n(), 11);
+    std::vector<int> constraint;
+    for (int i = 0; i < master_assign_work.constraint_size(); i++)
+    {
+        constraint.push_back(master_assign_work.constraint(i));
+    }
+    work_manager.set_constraint(constraint);
+
+    ans = 0;
+    std::vector<std::thread> thrds;
+    for (int i = 0; i < core_count; i++)
+    {
+        thrds.push_back(std::thread(bar, i, std::ref(work_manager)));
+    }
+    for (int i = 0; i < core_count; i++)
+    {
+        thrds[i].join();
+    }
+    return ans;
+}
 
 class Session
 {
@@ -47,15 +109,28 @@ private:
         /// Send SLAVE_ASK_FOR_WORK_REQ
         nqueens::SlaveAskForWork slave_ask_for_work;
         slave_ask_for_work.set_password(kPassword);
-        std::string serialized_data;
-        slave_ask_for_work.SerializeToString(&serialized_data);
-        
-        fill_send_packet(nqueens::SlaveMsgID::SLAVE_MSG_ASK_FOR_WORK, serialized_data.size(), serialized_data);
 
-        boost::asio::async_write(socket_, boost::asio::buffer(data_, kHeaderLength + serialized_data.size()),
+        int32_t send_length = fill_send_packet(slave_ask_for_work, nqueens::SlaveMsgID::SLAVE_MSG_ASK_FOR_WORK);
+
+        boost::asio::async_write(socket_, boost::asio::buffer(data_, send_length),
             [this](boost::system::error_code ec, std::size_t bytes_transferred)
             {
                 do_read_header();
+            });
+    }
+
+    void send_back_result(int64_t result)
+    {
+        /// Send SLAVE_MSG_TASK_RESULT
+        nqueens::SlaveTaskResult slave_task_result;
+        slave_task_result.set_result(result);
+        
+        int32_t send_length = fill_send_packet(slave_task_result, nqueens::SlaveMsgID::SLAVE_MSG_TASK_RESULT);
+
+        boost::asio::async_write(socket_, boost::asio::buffer(data_, send_length),
+            [this](boost::system::error_code ec, std::size_t bytes_transferred)
+            {
+                ask_for_work();
             });
     }
 
@@ -100,11 +175,18 @@ private:
             });
     }
 
-    void fill_send_packet(int32_t msg_id, int32_t body_length, const std::string& body)
+    template<typename T>
+    int32_t fill_send_packet(T& protobuf, int32_t msg_id)
     {
+        std::string serialized_data;
+        protobuf.SerializeToString(&serialized_data);
+        int32_t body_length = serialized_data.size();
+
         memcpy(data_, &msg_id, sizeof(int32_t));
         memcpy(data_ + 4, &body_length, sizeof(int32_t));
-        memcpy(data_ + 8, body.c_str(), body_length);
+        memcpy(data_ + 8, serialized_data.c_str(), body_length);
+
+        return kHeaderLength + body_length;
     }
 
     void master_msg_assign_work_callback(int body_length)
@@ -115,15 +197,11 @@ private:
         {
             if (!master_assign_work.error_code())
             {
-                int32_t constraint_length = master_assign_work.constraint_size();
-/*
-                std::cout << "Get a work:  " << "constraint_length:" << constraint_length << "   ";
-                for (int i = 0; i < constraint_length; i++)
-                    std::cout << master_assign_work.constraint(i) << " ";
-                std::cout << "\n";
-                for (int i = 0; i < 10000000; i++) {} // Waste time
-*/                
-                ask_for_work();
+                /// Complete the work
+                int64_t result = solve(master_assign_work);
+
+                /// Send back the result and ask for another work
+                send_back_result(result);
             }
         }
         else
@@ -143,7 +221,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    int core_count = get_nprocs();
+    core_count = get_nprocs() / 2;
     std::cout << "core count: " << core_count << "\n";
 
     boost::asio::io_service ios;

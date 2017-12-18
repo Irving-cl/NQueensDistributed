@@ -41,7 +41,7 @@ ADD_EXECUTABLE(nqueens_master ${master_SRCS})
 
 ADD_EXECUTABLE(nqueens_slave ${slave_SRCS})
 
-TARGET_LINK_LIBRARIES(nqueens_master boost_system protobuf)
+TARGET_LINK_LIBRARIES(nqueens_master protobuf boost_system)
 
-TARGET_LINK_LIBRARIES(nqueens_slave boost_system protobuf)
+TARGET_LINK_LIBRARIES(nqueens_slave protobuf boost_system)
 

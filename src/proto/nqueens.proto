@@ -9,6 +9,7 @@ enum MasterMsgID {
 
 enum SlaveMsgID {
     SLAVE_MSG_ASK_FOR_WORK = 1;
+    SLAVE_MSG_TASK_RESULT = 2;
 };
 
 enum ErrorCode {
@@ -21,11 +22,16 @@ message MasterCall {    // MSGID : MASTER_MSG_CALL
     required string password = 1;
 }
 
+message MasterAssignWork {    // MSGID : MASTER_MSG_ASSIGN_WORK
+    required int32 error_code = 1;
+    optional int32 n = 2;
+    repeated int32 constraint = 3;
+}
+
 message SlaveAskForWork {    // MSGID : SLAVE_MSG_ASK_FOR_WORK
     required string password = 1;
 }
 
-message MasterAssignWork {    // MSGID : MASTER_MSG_ASSIGN_WORK
-    required int32 error_code = 1;
-    repeated int32 constraint = 2;
+message SlaveTaskResult {    // MSGID : SLAVE_MSG_TASK_RESULT
+    required int64 result = 1;
 }

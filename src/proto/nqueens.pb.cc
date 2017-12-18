@@ -25,16 +25,21 @@ class MasterCallDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<MasterCall>
       _instance;
 } _MasterCall_default_instance_;
-class SlaveAskForWorkDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SlaveAskForWork>
-      _instance;
-} _SlaveAskForWork_default_instance_;
 class MasterAssignWorkDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<MasterAssignWork>
       _instance;
 } _MasterAssignWork_default_instance_;
+class SlaveAskForWorkDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<SlaveAskForWork>
+      _instance;
+} _SlaveAskForWork_default_instance_;
+class SlaveTaskResultDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<SlaveTaskResult>
+      _instance;
+} _SlaveTaskResult_default_instance_;
 }  // namespace nqueens
 namespace protobuf_nqueens_2eproto {
 void InitDefaultsMasterCallImpl() {
@@ -58,27 +63,6 @@ void InitDefaultsMasterCall() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsMasterCallImpl);
 }
 
-void InitDefaultsSlaveAskForWorkImpl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  {
-    void* ptr = &::nqueens::_SlaveAskForWork_default_instance_;
-    new (ptr) ::nqueens::SlaveAskForWork();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::nqueens::SlaveAskForWork::InitAsDefaultInstance();
-}
-
-void InitDefaultsSlaveAskForWork() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsSlaveAskForWorkImpl);
-}
-
 void InitDefaultsMasterAssignWorkImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -100,7 +84,49 @@ void InitDefaultsMasterAssignWork() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsMasterAssignWorkImpl);
 }
 
-::google::protobuf::Metadata file_level_metadata[3];
+void InitDefaultsSlaveAskForWorkImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::nqueens::_SlaveAskForWork_default_instance_;
+    new (ptr) ::nqueens::SlaveAskForWork();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::nqueens::SlaveAskForWork::InitAsDefaultInstance();
+}
+
+void InitDefaultsSlaveAskForWork() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsSlaveAskForWorkImpl);
+}
+
+void InitDefaultsSlaveTaskResultImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::nqueens::_SlaveTaskResult_default_instance_;
+    new (ptr) ::nqueens::SlaveTaskResult();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::nqueens::SlaveTaskResult::InitAsDefaultInstance();
+}
+
+void InitDefaultsSlaveTaskResult() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsSlaveTaskResultImpl);
+}
+
+::google::protobuf::Metadata file_level_metadata[4];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[3];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -111,6 +137,17 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterCall, password_),
   0,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, error_code_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, n_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, constraint_),
+  0,
+  1,
+  ~0u,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::SlaveAskForWork, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::SlaveAskForWork, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -118,26 +155,26 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::SlaveAskForWork, password_),
   0,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::SlaveTaskResult, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::SlaveTaskResult, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, error_code_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::MasterAssignWork, constraint_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::nqueens::SlaveTaskResult, result_),
   0,
-  ~0u,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 6, sizeof(::nqueens::MasterCall)},
-  { 7, 13, sizeof(::nqueens::SlaveAskForWork)},
-  { 14, 21, sizeof(::nqueens::MasterAssignWork)},
+  { 7, 15, sizeof(::nqueens::MasterAssignWork)},
+  { 18, 24, sizeof(::nqueens::SlaveAskForWork)},
+  { 25, 31, sizeof(::nqueens::SlaveTaskResult)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::nqueens::_MasterCall_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::nqueens::_SlaveAskForWork_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::nqueens::_MasterAssignWork_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::nqueens::_SlaveAskForWork_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::nqueens::_SlaveTaskResult_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -156,24 +193,25 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 3);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
 }
 
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\rnqueens.proto\022\007nqueens\"\036\n\nMasterCall\022\020"
-      "\n\010password\030\001 \002(\t\"#\n\017SlaveAskForWork\022\020\n\010p"
-      "assword\030\001 \002(\t\":\n\020MasterAssignWork\022\022\n\nerr"
-      "or_code\030\001 \002(\005\022\022\n\nconstraint\030\002 \003(\005*>\n\013Mas"
-      "terMsgID\022\023\n\017MASTER_MSG_CALL\020\001\022\032\n\026MASTER_"
-      "MSG_ASSIGN_WORK\020\002*(\n\nSlaveMsgID\022\032\n\026SLAVE"
-      "_MSG_ASK_FOR_WORK\020\001*>\n\tErrorCode\022\022\n\016ERRO"
-      "R_NO_ERROR\020\000\022\035\n\031ERROR_MASTER_NO_MORE_WOR"
-      "K\020\001"
+      "\n\010password\030\001 \002(\t\"E\n\020MasterAssignWork\022\022\n\n"
+      "error_code\030\001 \002(\005\022\t\n\001n\030\002 \001(\005\022\022\n\nconstrain"
+      "t\030\003 \003(\005\"#\n\017SlaveAskForWork\022\020\n\010password\030\001"
+      " \002(\t\"!\n\017SlaveTaskResult\022\016\n\006result\030\001 \002(\003*"
+      ">\n\013MasterMsgID\022\023\n\017MASTER_MSG_CALL\020\001\022\032\n\026M"
+      "ASTER_MSG_ASSIGN_WORK\020\002*C\n\nSlaveMsgID\022\032\n"
+      "\026SLAVE_MSG_ASK_FOR_WORK\020\001\022\031\n\025SLAVE_MSG_T"
+      "ASK_RESULT\020\002*>\n\tErrorCode\022\022\n\016ERROR_NO_ER"
+      "ROR\020\000\022\035\n\031ERROR_MASTER_NO_MORE_WORK\020\001"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 323);
+      descriptor, 396);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "nqueens.proto", &protobuf_RegisterTypes);
 }
@@ -211,6 +249,7 @@ const ::google::protobuf::EnumDescriptor* SlaveMsgID_descriptor() {
 bool SlaveMsgID_IsValid(int value) {
   switch (value) {
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -499,6 +538,341 @@ void MasterCall::InternalSwap(MasterCall* other) {
 
 // ===================================================================
 
+void MasterAssignWork::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int MasterAssignWork::kErrorCodeFieldNumber;
+const int MasterAssignWork::kNFieldNumber;
+const int MasterAssignWork::kConstraintFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+MasterAssignWork::MasterAssignWork()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWork();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:nqueens.MasterAssignWork)
+}
+MasterAssignWork::MasterAssignWork(const MasterAssignWork& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0),
+      constraint_(from.constraint_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&error_code_, &from.error_code_,
+    static_cast<size_t>(reinterpret_cast<char*>(&n_) -
+    reinterpret_cast<char*>(&error_code_)) + sizeof(n_));
+  // @@protoc_insertion_point(copy_constructor:nqueens.MasterAssignWork)
+}
+
+void MasterAssignWork::SharedCtor() {
+  _cached_size_ = 0;
+  ::memset(&error_code_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&n_) -
+      reinterpret_cast<char*>(&error_code_)) + sizeof(n_));
+}
+
+MasterAssignWork::~MasterAssignWork() {
+  // @@protoc_insertion_point(destructor:nqueens.MasterAssignWork)
+  SharedDtor();
+}
+
+void MasterAssignWork::SharedDtor() {
+}
+
+void MasterAssignWork::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* MasterAssignWork::descriptor() {
+  ::protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_nqueens_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const MasterAssignWork& MasterAssignWork::default_instance() {
+  ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWork();
+  return *internal_default_instance();
+}
+
+MasterAssignWork* MasterAssignWork::New(::google::protobuf::Arena* arena) const {
+  MasterAssignWork* n = new MasterAssignWork;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void MasterAssignWork::Clear() {
+// @@protoc_insertion_point(message_clear_start:nqueens.MasterAssignWork)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  constraint_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 3u) {
+    ::memset(&error_code_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&n_) -
+        reinterpret_cast<char*>(&error_code_)) + sizeof(n_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+bool MasterAssignWork::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:nqueens.MasterAssignWork)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 error_code = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+          set_has_error_code();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &error_code_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional int32 n = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+          set_has_n();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &n_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated int32 constraint = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 24u, input, this->mutable_constraint())));
+        } else if (
+            static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_constraint())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:nqueens.MasterAssignWork)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:nqueens.MasterAssignWork)
+  return false;
+#undef DO_
+}
+
+void MasterAssignWork::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:nqueens.MasterAssignWork)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 error_code = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->error_code(), output);
+  }
+
+  // optional int32 n = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->n(), output);
+  }
+
+  // repeated int32 constraint = 3;
+  for (int i = 0, n = this->constraint_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(
+      3, this->constraint(i), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:nqueens.MasterAssignWork)
+}
+
+::google::protobuf::uint8* MasterAssignWork::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:nqueens.MasterAssignWork)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 error_code = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->error_code(), target);
+  }
+
+  // optional int32 n = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->n(), target);
+  }
+
+  // repeated int32 constraint = 3;
+  target = ::google::protobuf::internal::WireFormatLite::
+    WriteInt32ToArray(3, this->constraint_, target);
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:nqueens.MasterAssignWork)
+  return target;
+}
+
+size_t MasterAssignWork::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:nqueens.MasterAssignWork)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  // required int32 error_code = 1;
+  if (has_error_code()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->error_code());
+  }
+  // repeated int32 constraint = 3;
+  {
+    size_t data_size = ::google::protobuf::internal::WireFormatLite::
+      Int32Size(this->constraint_);
+    total_size += 1 *
+                  ::google::protobuf::internal::FromIntSize(this->constraint_size());
+    total_size += data_size;
+  }
+
+  // optional int32 n = 2;
+  if (has_n()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->n());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void MasterAssignWork::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:nqueens.MasterAssignWork)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MasterAssignWork* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const MasterAssignWork>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:nqueens.MasterAssignWork)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:nqueens.MasterAssignWork)
+    MergeFrom(*source);
+  }
+}
+
+void MasterAssignWork::MergeFrom(const MasterAssignWork& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:nqueens.MasterAssignWork)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  constraint_.MergeFrom(from.constraint_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
+      error_code_ = from.error_code_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      n_ = from.n_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+}
+
+void MasterAssignWork::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:nqueens.MasterAssignWork)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MasterAssignWork::CopyFrom(const MasterAssignWork& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:nqueens.MasterAssignWork)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MasterAssignWork::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  return true;
+}
+
+void MasterAssignWork::Swap(MasterAssignWork* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void MasterAssignWork::InternalSwap(MasterAssignWork* other) {
+  using std::swap;
+  constraint_.InternalSwap(&other->constraint_);
+  swap(error_code_, other->error_code_);
+  swap(n_, other->n_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata MasterAssignWork::GetMetadata() const {
+  protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_nqueens_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
 void SlaveAskForWork::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -764,117 +1138,95 @@ void SlaveAskForWork::InternalSwap(SlaveAskForWork* other) {
 
 // ===================================================================
 
-void MasterAssignWork::InitAsDefaultInstance() {
+void SlaveTaskResult::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MasterAssignWork::kErrorCodeFieldNumber;
-const int MasterAssignWork::kConstraintFieldNumber;
+const int SlaveTaskResult::kResultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-MasterAssignWork::MasterAssignWork()
+SlaveTaskResult::SlaveTaskResult()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWork();
+    ::protobuf_nqueens_2eproto::InitDefaultsSlaveTaskResult();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(constructor:nqueens.SlaveTaskResult)
 }
-MasterAssignWork::MasterAssignWork(const MasterAssignWork& from)
+SlaveTaskResult::SlaveTaskResult(const SlaveTaskResult& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _has_bits_(from._has_bits_),
-      _cached_size_(0),
-      constraint_(from.constraint_) {
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  error_code_ = from.error_code_;
-  // @@protoc_insertion_point(copy_constructor:nqueens.MasterAssignWork)
+  result_ = from.result_;
+  // @@protoc_insertion_point(copy_constructor:nqueens.SlaveTaskResult)
 }
 
-void MasterAssignWork::SharedCtor() {
+void SlaveTaskResult::SharedCtor() {
   _cached_size_ = 0;
-  error_code_ = 0;
+  result_ = GOOGLE_LONGLONG(0);
 }
 
-MasterAssignWork::~MasterAssignWork() {
-  // @@protoc_insertion_point(destructor:nqueens.MasterAssignWork)
+SlaveTaskResult::~SlaveTaskResult() {
+  // @@protoc_insertion_point(destructor:nqueens.SlaveTaskResult)
   SharedDtor();
 }
 
-void MasterAssignWork::SharedDtor() {
+void SlaveTaskResult::SharedDtor() {
 }
 
-void MasterAssignWork::SetCachedSize(int size) const {
+void SlaveTaskResult::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* MasterAssignWork::descriptor() {
+const ::google::protobuf::Descriptor* SlaveTaskResult::descriptor() {
   ::protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_nqueens_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const MasterAssignWork& MasterAssignWork::default_instance() {
-  ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWork();
+const SlaveTaskResult& SlaveTaskResult::default_instance() {
+  ::protobuf_nqueens_2eproto::InitDefaultsSlaveTaskResult();
   return *internal_default_instance();
 }
 
-MasterAssignWork* MasterAssignWork::New(::google::protobuf::Arena* arena) const {
-  MasterAssignWork* n = new MasterAssignWork;
+SlaveTaskResult* SlaveTaskResult::New(::google::protobuf::Arena* arena) const {
+  SlaveTaskResult* n = new SlaveTaskResult;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void MasterAssignWork::Clear() {
-// @@protoc_insertion_point(message_clear_start:nqueens.MasterAssignWork)
+void SlaveTaskResult::Clear() {
+// @@protoc_insertion_point(message_clear_start:nqueens.SlaveTaskResult)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  constraint_.Clear();
-  error_code_ = 0;
+  result_ = GOOGLE_LONGLONG(0);
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
 
-bool MasterAssignWork::MergePartialFromCodedStream(
+bool SlaveTaskResult::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(parse_start:nqueens.SlaveTaskResult)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 error_code = 1;
+      // required int64 result = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          set_has_error_code();
+          set_has_result();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &error_code_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // repeated int32 constraint = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 1, 16u, input, this->mutable_constraint())));
-        } else if (
-            static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, this->mutable_constraint())));
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &result_)));
         } else {
           goto handle_unusual;
         }
@@ -893,66 +1245,56 @@ bool MasterAssignWork::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(parse_success:nqueens.SlaveTaskResult)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(parse_failure:nqueens.SlaveTaskResult)
   return false;
 #undef DO_
 }
 
-void MasterAssignWork::SerializeWithCachedSizes(
+void SlaveTaskResult::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(serialize_start:nqueens.SlaveTaskResult)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required int32 error_code = 1;
+  // required int64 result = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->error_code(), output);
-  }
-
-  // repeated int32 constraint = 2;
-  for (int i = 0, n = this->constraint_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(
-      2, this->constraint(i), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->result(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(serialize_end:nqueens.SlaveTaskResult)
 }
 
-::google::protobuf::uint8* MasterAssignWork::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* SlaveTaskResult::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(serialize_to_array_start:nqueens.SlaveTaskResult)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // required int32 error_code = 1;
+  // required int64 result = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->error_code(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->result(), target);
   }
-
-  // repeated int32 constraint = 2;
-  target = ::google::protobuf::internal::WireFormatLite::
-    WriteInt32ToArray(2, this->constraint_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(serialize_to_array_end:nqueens.SlaveTaskResult)
   return target;
 }
 
-size_t MasterAssignWork::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:nqueens.MasterAssignWork)
+size_t SlaveTaskResult::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:nqueens.SlaveTaskResult)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -960,21 +1302,12 @@ size_t MasterAssignWork::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  // required int32 error_code = 1;
-  if (has_error_code()) {
+  // required int64 result = 1;
+  if (has_result()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->error_code());
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->result());
   }
-  // repeated int32 constraint = 2;
-  {
-    size_t data_size = ::google::protobuf::internal::WireFormatLite::
-      Int32Size(this->constraint_);
-    total_size += 1 *
-                  ::google::protobuf::internal::FromIntSize(this->constraint_size());
-    total_size += data_size;
-  }
-
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -982,67 +1315,65 @@ size_t MasterAssignWork::ByteSizeLong() const {
   return total_size;
 }
 
-void MasterAssignWork::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:nqueens.MasterAssignWork)
+void SlaveTaskResult::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:nqueens.SlaveTaskResult)
   GOOGLE_DCHECK_NE(&from, this);
-  const MasterAssignWork* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const MasterAssignWork>(
+  const SlaveTaskResult* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const SlaveTaskResult>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:nqueens.SlaveTaskResult)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:nqueens.SlaveTaskResult)
     MergeFrom(*source);
   }
 }
 
-void MasterAssignWork::MergeFrom(const MasterAssignWork& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:nqueens.MasterAssignWork)
+void SlaveTaskResult::MergeFrom(const SlaveTaskResult& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:nqueens.SlaveTaskResult)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  constraint_.MergeFrom(from.constraint_);
-  if (from.has_error_code()) {
-    set_error_code(from.error_code());
+  if (from.has_result()) {
+    set_result(from.result());
   }
 }
 
-void MasterAssignWork::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:nqueens.MasterAssignWork)
+void SlaveTaskResult::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:nqueens.SlaveTaskResult)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void MasterAssignWork::CopyFrom(const MasterAssignWork& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:nqueens.MasterAssignWork)
+void SlaveTaskResult::CopyFrom(const SlaveTaskResult& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:nqueens.SlaveTaskResult)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool MasterAssignWork::IsInitialized() const {
+bool SlaveTaskResult::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   return true;
 }
 
-void MasterAssignWork::Swap(MasterAssignWork* other) {
+void SlaveTaskResult::Swap(SlaveTaskResult* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void MasterAssignWork::InternalSwap(MasterAssignWork* other) {
+void SlaveTaskResult::InternalSwap(SlaveTaskResult* other) {
   using std::swap;
-  constraint_.InternalSwap(&other->constraint_);
-  swap(error_code_, other->error_code_);
+  swap(result_, other->result_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata MasterAssignWork::GetMetadata() const {
+::google::protobuf::Metadata SlaveTaskResult::GetMetadata() const {
   protobuf_nqueens_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_nqueens_2eproto::file_level_metadata[kIndexInFileMessages];
 }

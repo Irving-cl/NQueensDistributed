@@ -37,7 +37,7 @@ namespace protobuf_nqueens_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[3];
+  static const ::google::protobuf::internal::ParseTable schema[4];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -45,14 +45,17 @@ struct TableStruct {
 void AddDescriptors();
 void InitDefaultsMasterCallImpl();
 void InitDefaultsMasterCall();
-void InitDefaultsSlaveAskForWorkImpl();
-void InitDefaultsSlaveAskForWork();
 void InitDefaultsMasterAssignWorkImpl();
 void InitDefaultsMasterAssignWork();
+void InitDefaultsSlaveAskForWorkImpl();
+void InitDefaultsSlaveAskForWork();
+void InitDefaultsSlaveTaskResultImpl();
+void InitDefaultsSlaveTaskResult();
 inline void InitDefaults() {
   InitDefaultsMasterCall();
-  InitDefaultsSlaveAskForWork();
   InitDefaultsMasterAssignWork();
+  InitDefaultsSlaveAskForWork();
+  InitDefaultsSlaveTaskResult();
 }
 }  // namespace protobuf_nqueens_2eproto
 namespace nqueens {
@@ -65,6 +68,9 @@ extern MasterCallDefaultTypeInternal _MasterCall_default_instance_;
 class SlaveAskForWork;
 class SlaveAskForWorkDefaultTypeInternal;
 extern SlaveAskForWorkDefaultTypeInternal _SlaveAskForWork_default_instance_;
+class SlaveTaskResult;
+class SlaveTaskResultDefaultTypeInternal;
+extern SlaveTaskResultDefaultTypeInternal _SlaveTaskResult_default_instance_;
 }  // namespace nqueens
 namespace nqueens {
 
@@ -88,11 +94,12 @@ inline bool MasterMsgID_Parse(
     MasterMsgID_descriptor(), name, value);
 }
 enum SlaveMsgID {
-  SLAVE_MSG_ASK_FOR_WORK = 1
+  SLAVE_MSG_ASK_FOR_WORK = 1,
+  SLAVE_MSG_TASK_RESULT = 2
 };
 bool SlaveMsgID_IsValid(int value);
 const SlaveMsgID SlaveMsgID_MIN = SLAVE_MSG_ASK_FOR_WORK;
-const SlaveMsgID SlaveMsgID_MAX = SLAVE_MSG_ASK_FOR_WORK;
+const SlaveMsgID SlaveMsgID_MAX = SLAVE_MSG_TASK_RESULT;
 const int SlaveMsgID_ARRAYSIZE = SlaveMsgID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* SlaveMsgID_descriptor();
@@ -244,6 +251,139 @@ class MasterCall : public ::google::protobuf::Message /* @@protoc_insertion_poin
 };
 // -------------------------------------------------------------------
 
+class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:nqueens.MasterAssignWork) */ {
+ public:
+  MasterAssignWork();
+  virtual ~MasterAssignWork();
+
+  MasterAssignWork(const MasterAssignWork& from);
+
+  inline MasterAssignWork& operator=(const MasterAssignWork& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  MasterAssignWork(MasterAssignWork&& from) noexcept
+    : MasterAssignWork() {
+    *this = ::std::move(from);
+  }
+
+  inline MasterAssignWork& operator=(MasterAssignWork&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MasterAssignWork& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const MasterAssignWork* internal_default_instance() {
+    return reinterpret_cast<const MasterAssignWork*>(
+               &_MasterAssignWork_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    1;
+
+  void Swap(MasterAssignWork* other);
+  friend void swap(MasterAssignWork& a, MasterAssignWork& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline MasterAssignWork* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  MasterAssignWork* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const MasterAssignWork& from);
+  void MergeFrom(const MasterAssignWork& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(MasterAssignWork* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 constraint = 3;
+  int constraint_size() const;
+  void clear_constraint();
+  static const int kConstraintFieldNumber = 3;
+  ::google::protobuf::int32 constraint(int index) const;
+  void set_constraint(int index, ::google::protobuf::int32 value);
+  void add_constraint(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      constraint() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_constraint();
+
+  // required int32 error_code = 1;
+  bool has_error_code() const;
+  void clear_error_code();
+  static const int kErrorCodeFieldNumber = 1;
+  ::google::protobuf::int32 error_code() const;
+  void set_error_code(::google::protobuf::int32 value);
+
+  // optional int32 n = 2;
+  bool has_n() const;
+  void clear_n();
+  static const int kNFieldNumber = 2;
+  ::google::protobuf::int32 n() const;
+  void set_n(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:nqueens.MasterAssignWork)
+ private:
+  void set_has_error_code();
+  void clear_has_error_code();
+  void set_has_n();
+  void clear_has_n();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable int _cached_size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > constraint_;
+  ::google::protobuf::int32 error_code_;
+  ::google::protobuf::int32 n_;
+  friend struct ::protobuf_nqueens_2eproto::TableStruct;
+  friend void ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWorkImpl();
+};
+// -------------------------------------------------------------------
+
 class SlaveAskForWork : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:nqueens.SlaveAskForWork) */ {
  public:
   SlaveAskForWork();
@@ -286,7 +426,7 @@ class SlaveAskForWork : public ::google::protobuf::Message /* @@protoc_insertion
                &_SlaveAskForWork_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+    2;
 
   void Swap(SlaveAskForWork* other);
   friend void swap(SlaveAskForWork& a, SlaveAskForWork& b) {
@@ -362,24 +502,24 @@ class SlaveAskForWork : public ::google::protobuf::Message /* @@protoc_insertion
 };
 // -------------------------------------------------------------------
 
-class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:nqueens.MasterAssignWork) */ {
+class SlaveTaskResult : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:nqueens.SlaveTaskResult) */ {
  public:
-  MasterAssignWork();
-  virtual ~MasterAssignWork();
+  SlaveTaskResult();
+  virtual ~SlaveTaskResult();
 
-  MasterAssignWork(const MasterAssignWork& from);
+  SlaveTaskResult(const SlaveTaskResult& from);
 
-  inline MasterAssignWork& operator=(const MasterAssignWork& from) {
+  inline SlaveTaskResult& operator=(const SlaveTaskResult& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  MasterAssignWork(MasterAssignWork&& from) noexcept
-    : MasterAssignWork() {
+  SlaveTaskResult(SlaveTaskResult&& from) noexcept
+    : SlaveTaskResult() {
     *this = ::std::move(from);
   }
 
-  inline MasterAssignWork& operator=(MasterAssignWork&& from) noexcept {
+  inline SlaveTaskResult& operator=(SlaveTaskResult&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -396,30 +536,30 @@ class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertio
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const MasterAssignWork& default_instance();
+  static const SlaveTaskResult& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const MasterAssignWork* internal_default_instance() {
-    return reinterpret_cast<const MasterAssignWork*>(
-               &_MasterAssignWork_default_instance_);
+  static inline const SlaveTaskResult* internal_default_instance() {
+    return reinterpret_cast<const SlaveTaskResult*>(
+               &_SlaveTaskResult_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+    3;
 
-  void Swap(MasterAssignWork* other);
-  friend void swap(MasterAssignWork& a, MasterAssignWork& b) {
+  void Swap(SlaveTaskResult* other);
+  friend void swap(SlaveTaskResult& a, SlaveTaskResult& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline MasterAssignWork* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline SlaveTaskResult* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  MasterAssignWork* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  SlaveTaskResult* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const MasterAssignWork& from);
-  void MergeFrom(const MasterAssignWork& from);
+  void CopyFrom(const SlaveTaskResult& from);
+  void MergeFrom(const SlaveTaskResult& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -435,7 +575,7 @@ class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertio
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(MasterAssignWork* other);
+  void InternalSwap(SlaveTaskResult* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -451,37 +591,24 @@ class MasterAssignWork : public ::google::protobuf::Message /* @@protoc_insertio
 
   // accessors -------------------------------------------------------
 
-  // repeated int32 constraint = 2;
-  int constraint_size() const;
-  void clear_constraint();
-  static const int kConstraintFieldNumber = 2;
-  ::google::protobuf::int32 constraint(int index) const;
-  void set_constraint(int index, ::google::protobuf::int32 value);
-  void add_constraint(::google::protobuf::int32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-      constraint() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-      mutable_constraint();
+  // required int64 result = 1;
+  bool has_result() const;
+  void clear_result();
+  static const int kResultFieldNumber = 1;
+  ::google::protobuf::int64 result() const;
+  void set_result(::google::protobuf::int64 value);
 
-  // required int32 error_code = 1;
-  bool has_error_code() const;
-  void clear_error_code();
-  static const int kErrorCodeFieldNumber = 1;
-  ::google::protobuf::int32 error_code() const;
-  void set_error_code(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:nqueens.MasterAssignWork)
+  // @@protoc_insertion_point(class_scope:nqueens.SlaveTaskResult)
  private:
-  void set_has_error_code();
-  void clear_has_error_code();
+  void set_has_result();
+  void clear_has_result();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > constraint_;
-  ::google::protobuf::int32 error_code_;
+  ::google::protobuf::int64 result_;
   friend struct ::protobuf_nqueens_2eproto::TableStruct;
-  friend void ::protobuf_nqueens_2eproto::InitDefaultsMasterAssignWorkImpl();
+  friend void ::protobuf_nqueens_2eproto::InitDefaultsSlaveTaskResultImpl();
 };
 // ===================================================================
 
@@ -559,6 +686,88 @@ inline void MasterCall::set_allocated_password(::std::string* password) {
 
 // -------------------------------------------------------------------
 
+// MasterAssignWork
+
+// required int32 error_code = 1;
+inline bool MasterAssignWork::has_error_code() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void MasterAssignWork::set_has_error_code() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void MasterAssignWork::clear_has_error_code() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void MasterAssignWork::clear_error_code() {
+  error_code_ = 0;
+  clear_has_error_code();
+}
+inline ::google::protobuf::int32 MasterAssignWork::error_code() const {
+  // @@protoc_insertion_point(field_get:nqueens.MasterAssignWork.error_code)
+  return error_code_;
+}
+inline void MasterAssignWork::set_error_code(::google::protobuf::int32 value) {
+  set_has_error_code();
+  error_code_ = value;
+  // @@protoc_insertion_point(field_set:nqueens.MasterAssignWork.error_code)
+}
+
+// optional int32 n = 2;
+inline bool MasterAssignWork::has_n() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MasterAssignWork::set_has_n() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MasterAssignWork::clear_has_n() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MasterAssignWork::clear_n() {
+  n_ = 0;
+  clear_has_n();
+}
+inline ::google::protobuf::int32 MasterAssignWork::n() const {
+  // @@protoc_insertion_point(field_get:nqueens.MasterAssignWork.n)
+  return n_;
+}
+inline void MasterAssignWork::set_n(::google::protobuf::int32 value) {
+  set_has_n();
+  n_ = value;
+  // @@protoc_insertion_point(field_set:nqueens.MasterAssignWork.n)
+}
+
+// repeated int32 constraint = 3;
+inline int MasterAssignWork::constraint_size() const {
+  return constraint_.size();
+}
+inline void MasterAssignWork::clear_constraint() {
+  constraint_.Clear();
+}
+inline ::google::protobuf::int32 MasterAssignWork::constraint(int index) const {
+  // @@protoc_insertion_point(field_get:nqueens.MasterAssignWork.constraint)
+  return constraint_.Get(index);
+}
+inline void MasterAssignWork::set_constraint(int index, ::google::protobuf::int32 value) {
+  constraint_.Set(index, value);
+  // @@protoc_insertion_point(field_set:nqueens.MasterAssignWork.constraint)
+}
+inline void MasterAssignWork::add_constraint(::google::protobuf::int32 value) {
+  constraint_.Add(value);
+  // @@protoc_insertion_point(field_add:nqueens.MasterAssignWork.constraint)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+MasterAssignWork::constraint() const {
+  // @@protoc_insertion_point(field_list:nqueens.MasterAssignWork.constraint)
+  return constraint_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+MasterAssignWork::mutable_constraint() {
+  // @@protoc_insertion_point(field_mutable_list:nqueens.MasterAssignWork.constraint)
+  return &constraint_;
+}
+
+// -------------------------------------------------------------------
+
 // SlaveAskForWork
 
 // required string password = 1;
@@ -626,65 +835,37 @@ inline void SlaveAskForWork::set_allocated_password(::std::string* password) {
 
 // -------------------------------------------------------------------
 
-// MasterAssignWork
+// SlaveTaskResult
 
-// required int32 error_code = 1;
-inline bool MasterAssignWork::has_error_code() const {
+// required int64 result = 1;
+inline bool SlaveTaskResult::has_result() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MasterAssignWork::set_has_error_code() {
+inline void SlaveTaskResult::set_has_result() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MasterAssignWork::clear_has_error_code() {
+inline void SlaveTaskResult::clear_has_result() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void MasterAssignWork::clear_error_code() {
-  error_code_ = 0;
-  clear_has_error_code();
+inline void SlaveTaskResult::clear_result() {
+  result_ = GOOGLE_LONGLONG(0);
+  clear_has_result();
 }
-inline ::google::protobuf::int32 MasterAssignWork::error_code() const {
-  // @@protoc_insertion_point(field_get:nqueens.MasterAssignWork.error_code)
-  return error_code_;
+inline ::google::protobuf::int64 SlaveTaskResult::result() const {
+  // @@protoc_insertion_point(field_get:nqueens.SlaveTaskResult.result)
+  return result_;
 }
-inline void MasterAssignWork::set_error_code(::google::protobuf::int32 value) {
-  set_has_error_code();
-  error_code_ = value;
-  // @@protoc_insertion_point(field_set:nqueens.MasterAssignWork.error_code)
-}
-
-// repeated int32 constraint = 2;
-inline int MasterAssignWork::constraint_size() const {
-  return constraint_.size();
-}
-inline void MasterAssignWork::clear_constraint() {
-  constraint_.Clear();
-}
-inline ::google::protobuf::int32 MasterAssignWork::constraint(int index) const {
-  // @@protoc_insertion_point(field_get:nqueens.MasterAssignWork.constraint)
-  return constraint_.Get(index);
-}
-inline void MasterAssignWork::set_constraint(int index, ::google::protobuf::int32 value) {
-  constraint_.Set(index, value);
-  // @@protoc_insertion_point(field_set:nqueens.MasterAssignWork.constraint)
-}
-inline void MasterAssignWork::add_constraint(::google::protobuf::int32 value) {
-  constraint_.Add(value);
-  // @@protoc_insertion_point(field_add:nqueens.MasterAssignWork.constraint)
-}
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-MasterAssignWork::constraint() const {
-  // @@protoc_insertion_point(field_list:nqueens.MasterAssignWork.constraint)
-  return constraint_;
-}
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-MasterAssignWork::mutable_constraint() {
-  // @@protoc_insertion_point(field_mutable_list:nqueens.MasterAssignWork.constraint)
-  return &constraint_;
+inline void SlaveTaskResult::set_result(::google::protobuf::int64 value) {
+  set_has_result();
+  result_ = value;
+  // @@protoc_insertion_point(field_set:nqueens.SlaveTaskResult.result)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
