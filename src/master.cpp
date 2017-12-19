@@ -211,7 +211,7 @@ int main(int argc, char* argv[])
 
     /// 2. connect all the slaves
     boost::asio::io_service ios;
-    Master master(n, 13);
+    Master master(n, n - 2);
 
     struct timeval tpstart, tpend;
     gettimeofday(&tpstart, NULL);

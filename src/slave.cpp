@@ -52,12 +52,12 @@ void bar(int id, WorkManager& work_manager)
 
 int64_t solve(nqueens::MasterAssignWork& master_assign_work)
 {
-    WorkManager work_manager(master_assign_work.n(), 11);
     std::vector<int> constraint;
     for (int i = 0; i < master_assign_work.constraint_size(); i++)
     {
         constraint.push_back(master_assign_work.constraint(i));
     }
+    WorkManager work_manager(master_assign_work.n(), master_assign_work.n() - constraint.size() - 2);
     work_manager.set_constraint(constraint);
 
     ans = 0;
@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    core_count = get_nprocs() / 2;
+    core_count = get_nprocs();
     std::cout << "core count: " << core_count << "\n";
 
     boost::asio::io_service ios;
